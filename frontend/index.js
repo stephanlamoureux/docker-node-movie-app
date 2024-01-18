@@ -1,20 +1,21 @@
-const express = require('express');
-const request = require('request');
+const express = require('express')
+const request = require('request')
 
-const app = express();
-const port = 3000;
-const restApiUrl = "http://localhost:3001/data";
+const app = express()
+const FRONTEND_PORT = process.env.FRONTEND_PORT
+const REST_API_URL = process.env.REST_API_URL
 
-app.get('/', function(req, res) {
-    request(
-        restApiUrl, {
-            method: "GET",
-        },
-        function(err, resp, body) {
-            if (!err && resp.statusCode === 200) {
-                var objData = JSON.parse(body);
-                var c_cap = objData.data;
-                var responseString = `
+app.get('/', function (req, res) {
+	request(
+		REST_API_URL,
+		{
+			method: 'GET',
+		},
+		function (err, resp, body) {
+			if (!err && resp.statusCode === 200) {
+				var objData = JSON.parse(body)
+				var c_cap = objData.data
+				var responseString = `
                     <style>
                         table {
                             border-collapse: collapse;
@@ -34,21 +35,22 @@ app.get('/', function(req, res) {
                         <tr>
                             <th>Movie</th>
                             <th>Actor</th>
-                        </tr>`;
+                        </tr>`
 
-                for (var i = 0; i < c_cap.length; i++)
-                    responseString += `
+				for (var i = 0; i < c_cap.length; i++)
+					responseString += `
                         <tr>
                             <td>${c_cap[i].movie}</td>
                             <td>${c_cap[i].hero}</td>
-                        </tr>`;
+                        </tr>`
 
-                responseString += `</table>`;
-                res.send(responseString);
-            } else {
-                console.log(err);
-            }
-        });
-});
+				responseString += `</table>`
+				res.send(responseString)
+			} else {
+				console.log(err)
+			}
+		}
+	)
+})
 
-app.listen(port, () => console.log(`Frontend app listening on port ${port}!`))
+app.listen(FRONTEND_PORT, () => console.log(`Frontend app listening on port ${FRONTEND_PORT}!`))
