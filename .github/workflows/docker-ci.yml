@@ -32,11 +32,11 @@ jobs:
         with:
           context: ./frontend
           push: true
-          tags: ${{ env.DOCKER_USERNAME }}/frontend:latest,${{ env.DOCKER_USERNAME }}/frontend:${{ github.sha }}
+          tags: ${{ env.DOCKER_USERNAME }}/movie-app-frontend:latest,${{ env.DOCKER_USERNAME }}/frontend:${{ github.sha }}
 
       - name: Build and push Backend Docker image
         uses: docker/build-push-action@v2
         with:
           context: ./backend
           push: true
-          tags: ${{ env.DOCKER_USERNAME }}/backend:latest,${{ env.DOCKER_USERNAME }}/backend:${{ github.sha }}
+          tags: ${{ env.DOCKER_USERNAME }}/movie-app-backend:latest,${{ env.DOCKER_USERNAME }}/backend:${{ github.sha }}
