@@ -31,6 +31,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./frontend
+          file: ./frontend/Dockerfile
           push: true
           tags: ${{ env.DOCKER_USERNAME }}/movie-app-frontend:latest,${{ env.DOCKER_USERNAME }}/frontend:${{ github.sha }}
 
@@ -38,5 +39,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./backend
+          file: ./backend/Dockerfile
           push: true
           tags: ${{ env.DOCKER_USERNAME }}/movie-app-backend:latest,${{ env.DOCKER_USERNAME }}/backend:${{ github.sha }}
